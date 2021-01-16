@@ -43,6 +43,7 @@ class _MyHomePageState extends State<MyHomePage> {
   bool crotPressed = false;
   bool wangy1Pressed = false;
   bool wangy2Pressed = false;
+  bool wangy3Pressed = false;
 
   Widget crotTextGenerator({String name = '\{NAMA\}'}) {
     String unformattedText =
@@ -117,7 +118,38 @@ class _MyHomePageState extends State<MyHomePage> {
               return TextSpan(
                   text: data + ' ',
                   style: TextStyle(
-                      color: data == name || data == name + '.' ? Colors.red : Colors.black));
+                      color: data == name || data == name + '.'
+                          ? Colors.red
+                          : Colors.black));
+            }).toList()),
+      );
+    }
+
+    return null;
+  }
+
+  Widget wangy3Generator({String name = '\{NAMA\}'}) {
+    String unformattedText =
+        """GW BENAR-BENAR PENGEN JILATI KAKI $name GW PENGEN BANGET MENJILAT SETIAP BAGIAN KAKINYA SAMPAI AIR LIUR GW BERCUCURAN KAYAK AIR KERINGAT LALU NGENOD DENGANNYA SETIAP HARI SAMPAI TUBUH KITA MATI RASA YA TÜHAN. GW INGIN MEMBUAT ANAK-ANAK DENGAN $name SEBANYAK SATU TÌM SEPAK BOLA DAN MEMBUAT SATU TIM SEPAK BOLA LAINNYA UNTUK MELAWAN ANAK-ANAK TIM SEPAK BOLA PERTAMA GW YANG GW BUAT SAMA $name GW PENGEN MASUK KE SETIAP LUBANG TUBUHNYA, MAU ITU LUBANG HIDUNG, LUBANG TELINGA, RONGGA MATA MAUPUN PUSAR, KECUALI PORI-PORI KULIT. KEMUDIAN GW AKAN MENJADIKANNYA MANUSIA YANG TIDAK BISA HIDUP KALO TIDAK GW KENTOG SETIAP HARI. DAN KALAU GUA DISEPONG GUA RELA KONTL GUA PUTUS.""";
+
+    finalText = unformattedText;
+    if (mounted) setState(() {});
+
+    List splittedText = unformattedText.split(" ");
+
+    for (int i = 0; i < splittedText.length; i++) {
+      return RichText(
+        text: TextSpan(
+            style: TextStyle(
+              color: splittedText[i] == name ? Colors.red : Colors.black,
+            ),
+            children: splittedText.map((data) {
+              return TextSpan(
+                  text: data + ' ',
+                  style: TextStyle(
+                      color: data == name || data == name + '.'
+                          ? Colors.red
+                          : Colors.black));
             }).toList()),
       );
     }
@@ -159,54 +191,63 @@ class _MyHomePageState extends State<MyHomePage> {
                 style:
                     TextStyle(color: Colors.black, fontWeight: FontWeight.bold),
               ),
-              Row(
+              Wrap(
+                alignment: WrapAlignment.center,
                 children: <Widget>[
-                  Flexible(
-                    flex: 1,
-                    child: RaisedButton(
-                      child: Text('CROTTT'),
-                      onPressed: () {
-                        crotPressed = true;
-                        wangy1Pressed = false;
-                        wangy2Pressed = false;
-                        if(mounted) setState(() {
-                          
-                        });
-                      },
-                    ),
+                  RaisedButton(
+                    child: Text('CROTTT'),
+                    onPressed: () {
+                      crotPressed = true;
+                      wangy1Pressed = false;
+                      wangy2Pressed = false;
+                      wangy3Pressed = false;
+                      if (mounted) setState(() {});
+                    },
                   ),
                   SizedBox(
                     width: 15,
                   ),
-                  Flexible(
-                    child: RaisedButton(
-                      child: Text('WANGYY 1'),
-                      onPressed: () {
-                        crotPressed = false;
-                        wangy1Pressed = true;
-                        wangy2Pressed = false;
-                        if(mounted) setState(() {
-                          
-                        });
-                      },
-                    ),
+                  RaisedButton(
+                    child: Text('WANGYY 1'),
+                    onPressed: () {
+                      crotPressed = false;
+                      wangy1Pressed = true;
+                      wangy2Pressed = false;
+                      wangy3Pressed = false;
+                      if (mounted) setState(() {});
+                    },
                   ),
                   SizedBox(
                     width: 15,
                   ),
-                  Flexible(
-                    child: RaisedButton(
-                      child: Text('WANGYY 2'),
-                      onPressed: () {
-                        crotPressed = false;
-                        wangy1Pressed = false;
-                        wangy2Pressed = true;
+                  RaisedButton(
+                    child: Text('WANGYY 2'),
+                    onPressed: () {
+                      crotPressed = false;
+                      wangy1Pressed = false;
+                      wangy2Pressed = true;
+                      wangy3Pressed = false;
 
-                        if(mounted) setState(() {
-                          
-                        });
-                      },
+                      if (mounted) setState(() {});
+                    },
+                  ),
+                  SizedBox(
+                    width: 15,
+                  ),
+                  RaisedButton(
+                    child: Text(
+                      'WANGYY 3',
                     ),
+                    onPressed: () {
+                      crotPressed = false;
+                      wangy1Pressed = false;
+                      wangy2Pressed = false;
+                      wangy3Pressed = true;
+                      if (mounted) setState(() {});
+                    },
+                  ),
+                  SizedBox(
+                    width: 15,
                   ),
                 ],
               ),
@@ -219,18 +260,42 @@ class _MyHomePageState extends State<MyHomePage> {
                     decoration: BoxDecoration(
                         border: Border.all(color: Colors.black),
                         borderRadius: BorderRadius.circular(12)),
-                    child: crotPressed && wangy1Pressed == false && wangy2Pressed == false ? crotTextGenerator(name: crotTextController.text) : wangy1Pressed && crotPressed == false && wangy2Pressed == false ? wangy1Generator(name: crotTextController.text) : wangy2Pressed && crotPressed == false && wangy1Pressed == false ? wangy2Generator(name: crotTextController.text)  : Text('Tidak ada template yang di pilih')),
+                    child: crotPressed &&
+                            wangy1Pressed == false &&
+                            wangy2Pressed == false &&
+                            wangy3Pressed == false
+                        ? crotTextGenerator(name: crotTextController.text)
+                        : wangy1Pressed &&
+                                crotPressed == false &&
+                                wangy2Pressed == false &&
+                                wangy3Pressed == false
+                            ? wangy1Generator(name: crotTextController.text)
+                            : wangy2Pressed &&
+                                    crotPressed == false &&
+                                    wangy1Pressed == false &&
+                                    wangy3Pressed == false
+                                ? wangy2Generator(name: crotTextController.text)
+                                : wangy3Pressed &&
+                                        crotPressed == false &&
+                                        wangy1Pressed == false &&
+                                        wangy2Pressed == false
+                                    ? wangy3Generator(
+                                        name: crotTextController.text)
+                                    : Text('Tidak ada template yang di pilih')),
               ),
-              RaisedButton(
-                child: Text('COPY TEXT'),
-                onPressed: () {
-                  if (finalText != null || finalText != "")
-                    Clipboard.setData(ClipboardData(text: finalText))
-                        .then((completed) {
-                      key.currentState.showSnackBar(
-                          SnackBar(content: Text("Text Telah di Copy!")));
-                    });
-                },
+              ButtonTheme(
+                buttonColor: Colors.blue[400],
+                child: RaisedButton(
+                  child: Text('COPY TEXT', style: TextStyle(color: Colors.white),),
+                  onPressed: () {
+                    if (finalText != null || finalText != "")
+                      Clipboard.setData(ClipboardData(text: finalText))
+                          .then((completed) {
+                        key.currentState.showSnackBar(
+                            SnackBar(content: Text("Text Telah di Copy!")));
+                      });
+                  },
+                ),
               )
             ],
           ),
